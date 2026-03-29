@@ -37,7 +37,7 @@ export class ModerationService {
         .select();
 
       if (userError) throw new Error(userError.message);
-      
+
       if (!userData || userData.length === 0) {
         throw new Error('Hata: Belirtilen ID ile eşleşen bir kullanıcı bulunamadı!');
       }
@@ -61,7 +61,7 @@ export class ModerationService {
         });
 
       if (auditError) throw new Error(auditError.message);
-      
+
     } catch (error) {
       console.error('suspendUser Transactional Error:', error);
       throw error;

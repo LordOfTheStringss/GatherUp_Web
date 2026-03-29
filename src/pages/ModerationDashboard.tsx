@@ -30,7 +30,7 @@ export default function ModerationDashboard() {
     try {
       if (!window.confirm('Are you certain you want to ban this user? This action is permanent.')) return;
       setActionLoadingId(reportId);
-      
+
       const reason = window.prompt('Provide a reason for the ban:', 'Violation of community guidelines');
       if (!reason) {
         setActionLoadingId(null);
@@ -39,7 +39,7 @@ export default function ModerationDashboard() {
 
       await ModerationService.suspendUser(userId, reportId, reason);
       setReports((prev) => prev.filter((r) => r.id !== reportId));
-      
+
       // Simulate toast
       alert('Success: User banned and report closed.');
     } catch (err: any) {
@@ -53,7 +53,7 @@ export default function ModerationDashboard() {
     try {
       if (!window.confirm('Discard this report safely without any actions?')) return;
       setActionLoadingId(reportId);
-      
+
       // Since resolve isolated isn't fully linked to DB mock, we optimistically filter
       setReports((prev) => prev.filter((r) => r.id !== reportId));
     } catch (err: any) {
@@ -71,7 +71,7 @@ export default function ModerationDashboard() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      
+
       {/* Header */}
       <header className="flex flex-col md:flex-row md:items-center justify-between">
         <div>
@@ -139,14 +139,14 @@ export default function ModerationDashboard() {
       {error ? (
         <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6 rounded-2xl">
           <h3 className="text-lg font-bold text-red-800 dark:text-red-400 flex items-center gap-2">
-            <AlertCircle className="w-6 h-6"/> Critical Error
+            <AlertCircle className="w-6 h-6" /> Critical Error
           </h3>
           <p className="mt-2 text-red-700 dark:text-red-300 font-medium">{error}</p>
           <button onClick={fetchPendingReports} className="mt-4 px-4 py-2 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/80 transition-colors font-bold text-sm">Retry Connection</button>
         </div>
       ) : (
         <div className="bg-white dark:bg-[#1A1A24] rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 overflow-hidden">
-          
+
           <div className="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-transparent flex justify-between items-center">
             <h2 className="text-xl font-black text-gray-900 dark:text-white">Pending Action Items</h2>
           </div>
@@ -182,14 +182,14 @@ export default function ModerationDashboard() {
                 <tbody className="divide-y divide-gray-50 dark:divide-gray-800/50">
                   {reports.map((report) => (
                     <tr key={report.id} className="hover:bg-gray-50 dark:hover:bg-white/[0.03] transition-colors">
-                      
+
                       {/* Avatar & User Details */}
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-4">
-                          <img 
-                            className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-900/30 border-2 border-white dark:border-gray-800 shadow-sm" 
-                            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${report.target_id}`} 
-                            alt="Avatar" 
+                          <img
+                            className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-900/30 border-2 border-white dark:border-gray-800 shadow-sm"
+                            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${report.target_id}`}
+                            alt="Avatar"
                           />
                           <div>
                             <div className="text-base font-extrabold text-gray-900 dark:text-white">
@@ -248,7 +248,7 @@ export default function ModerationDashboard() {
                                 </>
                               )}
                             </button>
-                            
+
                             {/* Resolve Report (Indigo, Solid) */}
                             <button
                               onClick={() => handleResolveReport(report.id)}
@@ -260,7 +260,7 @@ export default function ModerationDashboard() {
                             </button>
                           </div>
                         ) : (
-                           <span className="text-gray-400 dark:text-gray-600 font-bold text-sm tracking-wide">NOT USER TARGET</span>
+                          <span className="text-gray-400 dark:text-gray-600 font-bold text-sm tracking-wide">NOT USER TARGET</span>
                         )}
                       </td>
                     </tr>
