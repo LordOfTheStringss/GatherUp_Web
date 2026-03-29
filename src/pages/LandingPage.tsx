@@ -120,7 +120,7 @@ export default function LandingPage() {
           </div>
 
           {/* Phone Mockup Area with Carousel */}
-          <div className="relative w-full max-w-[320px] aspect-[9/19] mx-auto z-10 lg:ml-auto">
+          <div className="relative w-full max-w-[320px] aspect-[10/19] mx-auto z-10 lg:ml-auto">
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-600 to-indigo-500 rounded-[3rem] shadow-2xl flex items-center justify-center border-[8px] border-gray-900 dark:border-black/50 p-2 group">
 
               <div className="bg-gray-900 dark:bg-black w-full h-full rounded-[2.2rem] relative overflow-hidden flex items-center justify-center">

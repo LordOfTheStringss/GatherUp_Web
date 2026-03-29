@@ -16,15 +16,27 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const { error: signInError } = await supabaseClient.auth.signInWithPassword({
+      // Temporary hardcoded bypass for development
+      /*
+      const { data, error: signInError } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
       });
 
       if (signInError) throw signInError;
 
-      // Navigate to admin on success
-      navigate('/admin/overview', { replace: true });
+      if (data.user?.email !== 'admin@gatherup.com') {
+        await supabaseClient.auth.signOut();
+        throw new Error('Unauthorized Access: Only the system administrator can access this panel.');
+      }
+      */
+
+      if (email === 'admin@gatherup.com' && password === 'admin123') {
+        localStorage.setItem('gatherup_admin_auth', 'true');
+        navigate('/admin/overview', { replace: true });
+      } else {
+        throw new Error('Invalid admin credentials.');
+      }
     } catch (err: any) {
       setError(err.message || 'An error occurred during login.');
     } finally {
@@ -54,7 +66,7 @@ export default function LoginPage() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="bg-white/80 dark:bg-[#1A1A24]/80 backdrop-blur-xl py-8 px-4 shadow-2xl shadow-purple-900/5 dark:shadow-none border border-gray-100 dark:border-gray-800/80 sm:rounded-3xl sm:px-10">
           <form className="space-y-6" onSubmit={handleLogin}>
-            
+
             {error && (
               <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800/50 p-4 rounded-xl flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 shrink-0" />
@@ -136,7 +148,7 @@ export default function LoginPage() {
                 )}
               </button>
             </div>
-            
+
             <div className="mt-6 text-center">
               <Link to="/" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 &larr; Back to Home
