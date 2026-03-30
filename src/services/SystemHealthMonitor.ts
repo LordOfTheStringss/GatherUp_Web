@@ -1,4 +1,4 @@
-import { supabaseClient } from '../infra/supabaseClient';
+import { supabaseClient } from '../infra/supabase';
 
 export type ServiceStatus = 'HEALTHY' | 'WARNING' | 'CRITICAL';
 
@@ -31,7 +31,7 @@ export class SystemHealthMonitor {
 
     const percentage = (used / limit) * 100;
     let status: ServiceStatus = 'HEALTHY';
-    
+
     if (percentage >= 95) {
       status = 'CRITICAL';
     } else if (percentage >= 80) {

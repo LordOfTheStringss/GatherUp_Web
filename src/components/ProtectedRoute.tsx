@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-// import { supabaseClient } from '../infra/supabaseClient'; // Temporarily bypassed
+// import { supabaseClient } from '../infra/supabase'; // Temporarily bypassed
 
 export default function ProtectedRoute() {
   const location = useLocation();

@@ -20,3 +20,9 @@ export interface Event {
   id: string; // UUID
   status: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
 }
+
+export interface AllowedDomain {
+  id: string;
+  domain: string;
+  created_at: string;
+}

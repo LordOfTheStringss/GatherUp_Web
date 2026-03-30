@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabaseClient as SupabaseClient } from '../../infra/supabaseClient';
+import { supabaseClient as SupabaseClient } from '../../infra/supabase';
 import { Report } from '../moderation/Report';
 
 export interface DashboardDTO {
@@ -20,12 +20,12 @@ export function useDashboard() {
           SupabaseClient.from('users').select('*', { count: 'exact', head: true }).eq('status', 'ACTIVE'),
           SupabaseClient.from('reports').select('*').eq('status', 'PENDING')
         ]);
-        
+
         setData({
           activeUserCount: userCountRes.count || 0,
           pendingReports: reportsRes.data as unknown as Report[] || []
         });
-      } catch(err) {
+      } catch (err) {
         console.error('Failed to load dashboard data', err);
       } finally {
         setLoading(false);

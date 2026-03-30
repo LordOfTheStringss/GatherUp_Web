@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { supabaseClient } from '../infra/SupabaseClient';
+import { supabaseClient } from '../infra/supabase';
 import { useTheme } from '../components/ThemeProvider';
-import { 
-  ShieldAlert, Menu, X, LogOut, LayoutDashboard, Sun, Moon, 
+import {
+  ShieldAlert, Menu, X, LogOut, LayoutDashboard, Sun, Moon,
   ShieldCheck, Activity, Search, UserCircle, CalendarDays
 } from 'lucide-react';
 
@@ -25,7 +25,7 @@ export default function AdminLayout() {
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-[#1A1A24] text-gray-900 dark:text-gray-100 overflow-hidden font-sans transition-colors duration-300">
-      
+
       {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden" onClick={() => setIsMobileMenuOpen(false)}></div>
@@ -41,7 +41,7 @@ export default function AdminLayout() {
             <X className="w-6 h-6" />
           </button>
         </div>
-        
+
         {/* Navigation */}
         <nav className="flex-1 px-4 py-8 space-y-2 overflow-y-auto">
           {tabs.map((tab) => {
@@ -51,11 +51,10 @@ export default function AdminLayout() {
                 key={tab.path}
                 to={tab.path}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={({ isActive }) => 
-                  `flex items-center w-full px-4 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
-                    isActive 
-                      ? 'bg-purple-600 text-white shadow-md shadow-purple-500/20' 
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200'
+                className={({ isActive }) =>
+                  `flex items-center w-full px-4 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 ${isActive
+                    ? 'bg-purple-600 text-white shadow-md shadow-purple-500/20'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200'
                   }`
                 }
               >
@@ -82,9 +81,9 @@ export default function AdminLayout() {
                 <span className="text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide text-purple-600 dark:text-purple-400">Admin Role</span>
               </div>
             </div>
-            <button 
+            <button
               onClick={handleLogout}
-              className="text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors p-2" 
+              className="text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors p-2"
               title="Logout"
             >
               <LogOut className="w-5 h-5" />
@@ -95,38 +94,38 @@ export default function AdminLayout() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-gray-50 dark:bg-[#1A1A24]">
-        
+
         {/* Global Header */}
         <header className="flex items-center justify-between h-20 px-6 lg:px-10 bg-white/80 dark:bg-[#1A1A24]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800/60 z-10 sticky top-0">
-           <div className="flex items-center flex-1 gap-4">
-             <button
-               className="text-gray-500 hover:text-gray-900 dark:hover:text-white focus:outline-none md:hidden"
-               onClick={() => setIsMobileMenuOpen(true)}
-             >
-               <Menu className="w-6 h-6" />
-             </button>
-             
-             {/* Search Bar - hidden on very small screens */}
-             <div className="max-w-md w-full hidden sm:flex items-center relative">
-               <Search className="w-5 h-5 text-gray-400 absolute left-3" />
-               <input 
-                 type="text" 
-                 placeholder="Search anything..." 
-                 className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800/50 border-transparent text-gray-900 dark:text-white rounded-full text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder-gray-500 dark:placeholder-gray-500"
-               />
-             </div>
-           </div>
-           
-           <div className="flex items-center gap-4 ml-4">
-             {/* Dark Mode Toggle */}
-             <button
-               onClick={toggleTheme}
-               className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-               aria-label="Toggle Dark Mode"
-             >
-               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-             </button>
-           </div>
+          <div className="flex items-center flex-1 gap-4">
+            <button
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white focus:outline-none md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+
+            {/* Search Bar - hidden on very small screens */}
+            <div className="max-w-md w-full hidden sm:flex items-center relative">
+              <Search className="w-5 h-5 text-gray-400 absolute left-3" />
+              <input
+                type="text"
+                placeholder="Search anything..."
+                className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800/50 border-transparent text-gray-900 dark:text-white rounded-full text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder-gray-500 dark:placeholder-gray-500"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 ml-4">
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle Dark Mode"
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+          </div>
         </header>
 
         {/* Dashboard Content area */}

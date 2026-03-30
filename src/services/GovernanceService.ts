@@ -1,4 +1,4 @@
-import { supabaseClient } from '../infra/supabaseClient';
+import { supabaseClient } from '../infra/supabase';
 
 export interface AllowedDomain {
   id: string; // UUID

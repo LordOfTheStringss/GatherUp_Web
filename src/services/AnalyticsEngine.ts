@@ -1,4 +1,4 @@
-import { supabaseClient } from '../infra/supabaseClient';
+import { supabaseClient } from '../infra/supabase';
 
 export interface UserGrowthMetrics {
   totalUsers: number;
@@ -19,7 +19,7 @@ export class AnalyticsEngine {
     const today = new Date();
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(today.getDate() - 7);
-    
+
     // Toplam kullanıcı
     const { count: totalCount, error: totalError } = await supabaseClient
       .from('users')
@@ -76,7 +76,7 @@ export class AnalyticsEngine {
     if (!data || data.length === 0) return [];
 
     const categoryMap: Record<string, number> = {};
-    
+
     for (const row of data) {
       const cat = row.sub_category || 'Unspecified';
       if (!categoryMap[cat]) categoryMap[cat] = 0;
@@ -91,7 +91,7 @@ export class AnalyticsEngine {
       const top5 = result.slice(0, 5);
       const others = result.slice(5);
       const otherCount = others.reduce((sum, item) => sum + item.count, 0);
-      
+
       top5.push({ name: 'Other', count: otherCount });
       return top5;
     }

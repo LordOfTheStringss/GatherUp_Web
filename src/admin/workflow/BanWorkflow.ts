@@ -1,4 +1,4 @@
-import { supabaseClient as SupabaseClient } from '../../infra/supabaseClient';
+import { supabaseClient as SupabaseClient } from '../../infra/supabase';
 
 export class BanWorkflow {
   async execute(userId: string, reportId: string): Promise<void> {
