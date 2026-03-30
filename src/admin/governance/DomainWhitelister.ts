@@ -38,7 +38,7 @@ export class DomainWhitelister {
     }
   }
 
-  auditDomainRegistration(domain: string): User[] {
+  auditDomainRegistration(): User[] {
     return [];
   }
 }

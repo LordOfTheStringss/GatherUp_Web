@@ -11,15 +11,15 @@ export class Moderator {
     this.permissions = permissions;
   }
 
-  async suspendUser(userId: string): Promise<void> {
+  async suspendUser(): Promise<void> {
     // empty impl
   }
 
-  async removeEvent(eventId: string): Promise<void> {
+  async removeEvent(): Promise<void> {
     // empty impl
   }
 
-  async reviewChatLogs(eventId: string): Promise<void> {
+  async reviewChatLogs(): Promise<void> {
     // empty impl
   }
 }

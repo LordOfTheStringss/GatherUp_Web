@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnalyticsEngine, UserGrowthMetrics, PopularCategory } from '../services/AnalyticsEngine';
 import { ModerationService } from '../services/ModerationService';
 import { Users, AlertCircle, PieChart as PieChartIcon, Activity, UserPlus, Ban } from 'lucide-react';
@@ -156,7 +156,7 @@ export default function MainDashboard() {
                   dataKey="count"
                   stroke="none"
                 >
-                  {popularCategories.map((entry, index) => (
+                  {popularCategories.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

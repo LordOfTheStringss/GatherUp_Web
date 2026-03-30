@@ -32,7 +32,7 @@ export class SystemHealthMonitor {
     }
   }
 
-  triggerAlert(serviceName: string): void {
+  triggerAlert(): void {
     // Alert logic
   }
 }

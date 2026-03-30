@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModerationService } from '../services/ModerationService';
 import { Report } from '../types';
-import { AlertCircle, CheckCircle, ShieldAlert, Ban, AlertTriangle, ShieldCheck, Activity, Users, Clock } from 'lucide-react';
+import { AlertCircle, CheckCircle, ShieldAlert, Ban, AlertTriangle, ShieldCheck, Activity, Clock } from 'lucide-react';
 
 export default function ModerationDashboard() {
   const [reports, setReports] = useState<Report[]>([]);

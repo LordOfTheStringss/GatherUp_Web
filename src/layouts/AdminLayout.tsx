@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { supabaseClient } from '../infra/supabaseClient';
+import { supabaseClient } from '../infra/SupabaseClient';
 import { useTheme } from '../components/ThemeProvider';
 import { 
   ShieldAlert, Menu, X, LogOut, LayoutDashboard, Sun, Moon, 

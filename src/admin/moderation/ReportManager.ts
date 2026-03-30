@@ -15,7 +15,7 @@ export class ReportManager {
     this.evidence = evidence;
   }
 
-  async assignToModerator(moderatorId: string): Promise<void> {
+  async assignToModerator(): Promise<void> {
     // empty impl
   }
 
@@ -23,7 +23,7 @@ export class ReportManager {
     return [];
   }
 
-  async closeReport(reportId: string): Promise<void> {
+  async closeReport(): Promise<void> {
     try {
       // if (conflict) throw new StaleObjectStateException();
       this.status = Status.RESOLVED;
