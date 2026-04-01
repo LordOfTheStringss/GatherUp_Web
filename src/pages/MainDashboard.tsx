@@ -19,7 +19,7 @@ export default function MainDashboard() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const [metricsData, reportsData, categoriesData] = await Promise.all([
         AnalyticsEngine.getUserGrowthMetrics(),
         ModerationService.getPendingReports(),
@@ -28,7 +28,8 @@ export default function MainDashboard() {
 
       setMetrics(metricsData);
       setPendingReportsCount(reportsData.length);
-      setPopularCategories(categoriesData);
+      const sortedCategories = categoriesData.sort((a, b) => b.count - a.count);
+      setPopularCategories(sortedCategories);
 
     } catch (err: any) {
       console.error(err);
@@ -38,7 +39,7 @@ export default function MainDashboard() {
     }
   };
 
-  const COLORS = ['#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b', '#6366f1'];
+  const COLORS = ['#8B5CF6', '#6366F1', '#EC4899', '#14B8A6', '#F59E0B', '#3B82F6'];
 
   if (loading) {
     return (
@@ -52,7 +53,7 @@ export default function MainDashboard() {
     return (
       <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded-xl text-red-700 dark:text-red-400 transition-colors">
         <p className="font-medium text-lg flex items-center gap-2">
-          <AlertCircle className="w-5 h-5"/> Error
+          <AlertCircle className="w-5 h-5" /> Error
         </p>
         <p>{error}</p>
         <button onClick={fetchDashboardData} className="mt-3 underline text-sm hover:text-red-900 dark:hover:text-red-300">Retry</button>
@@ -74,7 +75,7 @@ export default function MainDashboard() {
 
       {/* Analytics Widget Cards - 4 Columns */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        
+
         {/* Total Users Widget (Blue) */}
         <div className="bg-white dark:bg-[#1A1A24] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800/60 p-6 flex items-start hover:shadow-md transition-all duration-300 relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -139,7 +140,7 @@ export default function MainDashboard() {
           <PieChartIcon className="w-5 h-5 text-purple-500" />
           Event Categories
         </h3>
-        
+
         {popularCategories.length === 0 ? (
           <div className="text-center text-gray-500 dark:text-gray-400 py-12">Not enough data to display.</div>
         ) : (
@@ -160,7 +161,7 @@ export default function MainDashboard() {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   formatter={(value: any, name: any) => [`${value} Events`, name]}
                   contentStyle={{ backgroundColor: '#1A1A24', color: '#fff', border: '1px solid #374151', borderRadius: '12px' }}
                 />

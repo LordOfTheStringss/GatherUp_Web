@@ -9,20 +9,37 @@ export default function ModerationDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
 
+  // Real status counts from Supabase
+  const [statusCounts, setStatusCounts] = useState<{
+    total: number;
+    pending: number;
+    reviewing: number;
+    resolved: number;
+  }>({ total: 0, pending: 0, reviewing: 0, resolved: 0 });
+  const [countsLoading, setCountsLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    fetchPendingReports();
+    fetchAllData();
   }, []);
 
-  const fetchPendingReports = async () => {
+  const fetchAllData = async () => {
     try {
       setLoading(true);
+      setCountsLoading(true);
       setError(null);
-      const data = await ModerationService.getPendingReports();
-      setReports(data);
+
+      const [pendingData, counts] = await Promise.all([
+        ModerationService.getPendingReports(),
+        ModerationService.getAllReportStatusCounts(),
+      ]);
+
+      setReports(pendingData);
+      setStatusCounts(counts);
     } catch (err: any) {
       setError(err.message || 'An error occurred while loading reports.');
     } finally {
       setLoading(false);
+      setCountsLoading(false);
     }
   };
 
@@ -40,7 +57,13 @@ export default function ModerationDashboard() {
       await ModerationService.suspendUser(userId, reportId, reason);
       setReports((prev) => prev.filter((r) => r.id !== reportId));
 
-      // Simulate toast
+      // Update counts optimistically
+      setStatusCounts((prev) => ({
+        ...prev,
+        pending: Math.max(prev.pending - 1, 0),
+        resolved: prev.resolved + 1,
+      }));
+
       alert('Success: User banned and report closed.');
     } catch (err: any) {
       alert(`Ban failed: ${err.message}`);
@@ -54,20 +77,20 @@ export default function ModerationDashboard() {
       if (!window.confirm('Discard this report safely without any actions?')) return;
       setActionLoadingId(reportId);
 
-      // Since resolve isolated isn't fully linked to DB mock, we optimistically filter
       setReports((prev) => prev.filter((r) => r.id !== reportId));
+
+      // Update counts optimistically
+      setStatusCounts((prev) => ({
+        ...prev,
+        pending: Math.max(prev.pending - 1, 0),
+        resolved: prev.resolved + 1,
+      }));
     } catch (err: any) {
       alert(`Resolve failed: ${err.message}`);
     } finally {
       setActionLoadingId(null);
     }
   };
-
-  // Simulated widget metrics for radical design
-  const totalReportsMock = reports.length + 152;
-  const pendingReports = reports.length;
-  const reviewingReportsMock = 12;
-  const resolvedReportsMock = 140;
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -80,7 +103,11 @@ export default function ModerationDashboard() {
             Moderation & Reports
           </h1>
           <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
-            There are currently <span className="font-bold text-red-600 dark:text-red-400">{pendingReports}</span> reports pending review out of {totalReportsMock} total reports.
+            {countsLoading ? (
+              <span className="inline-block w-48 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+            ) : (
+              <>There are currently <span className="font-bold text-red-600 dark:text-red-400">{statusCounts.pending}</span> reports pending review out of {statusCounts.total} total reports.</>
+            )}
           </p>
         </div>
       </header>
@@ -94,7 +121,7 @@ export default function ModerationDashboard() {
           </div>
           <div>
             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Total Reports</p>
-            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{totalReportsMock}</h3>
+            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{countsLoading ? '…' : statusCounts.total}</h3>
           </div>
         </div>
 
@@ -108,7 +135,7 @@ export default function ModerationDashboard() {
           </div>
           <div className="relative z-10">
             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Pending</p>
-            <h3 className="text-3xl font-black text-red-600 dark:text-red-400 mt-1">{pendingReports}</h3>
+            <h3 className="text-3xl font-black text-red-600 dark:text-red-400 mt-1">{countsLoading ? '…' : statusCounts.pending}</h3>
           </div>
         </div>
 
@@ -119,7 +146,7 @@ export default function ModerationDashboard() {
           </div>
           <div>
             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Reviewing</p>
-            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{reviewingReportsMock}</h3>
+            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{countsLoading ? '…' : statusCounts.reviewing}</h3>
           </div>
         </div>
 
@@ -130,7 +157,7 @@ export default function ModerationDashboard() {
           </div>
           <div>
             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Resolved</p>
-            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{resolvedReportsMock}</h3>
+            <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{countsLoading ? '…' : statusCounts.resolved}</h3>
           </div>
         </div>
       </div>
@@ -142,7 +169,7 @@ export default function ModerationDashboard() {
             <AlertCircle className="w-6 h-6" /> Critical Error
           </h3>
           <p className="mt-2 text-red-700 dark:text-red-300 font-medium">{error}</p>
-          <button onClick={fetchPendingReports} className="mt-4 px-4 py-2 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/80 transition-colors font-bold text-sm">Retry Connection</button>
+          <button onClick={fetchAllData} className="mt-4 px-4 py-2 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/80 transition-colors font-bold text-sm">Retry Connection</button>
         </div>
       ) : (
         <div className="bg-white dark:bg-[#1A1A24] rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 overflow-hidden">
@@ -163,7 +190,7 @@ export default function ModerationDashboard() {
               </div>
               <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Queue is Empty</h3>
               <p className="text-gray-500 dark:text-gray-400 max-w-sm text-lg">There are no pending reports to review. The platform is secure.</p>
-              <button onClick={fetchPendingReports} className="mt-8 px-8 py-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+              <button onClick={fetchAllData} className="mt-8 px-8 py-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                 Refresh Queue
               </button>
             </div>

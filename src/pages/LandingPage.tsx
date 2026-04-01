@@ -46,16 +46,13 @@ export default function LandingPage() {
               <span className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">GatherUp</span>
             </div>
 
-            {/* Added Community Link */}
             <div className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Features</a>
-              <a href="#community" className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Community</a>
+              <button onClick={() => document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer bg-transparent border-none">Features</button>
+              <button onClick={() => document.getElementById('download-section')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer bg-transparent border-none">Community</button>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-
-            {/* Admin Login Button (Between Community and Search) */}
             <Link
               to="/login"
               className="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-semibold transition-all shadow-lg shadow-purple-500/25 hidden sm:block whitespace-nowrap"
@@ -63,12 +60,6 @@ export default function LandingPage() {
               Admin Login
             </Link>
 
-            {/* Search Bar placeholder */}
-            <div className="hidden lg:flex items-center relative mr-2">
-              <input type="text" placeholder="Search..." className="pl-4 pr-4 py-2 bg-gray-100 dark:bg-gray-800/50 border-transparent text-gray-900 dark:text-white rounded-full text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none w-48 transition-all" />
-            </div>
-
-            {/* Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -98,23 +89,24 @@ export default function LandingPage() {
           <div className="flex flex-col items-start text-left z-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-700/50 mb-8 font-semibold text-sm">
               <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-              IT STARTS ON YOUR CAMPUS
+              IT STARTS IN YOUR COMMUNITY
             </div>
             <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-              Don't wait for the right time to socialize. <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400">Create it.</span>
+              Discover incredible events around you. <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400">Join them.</span>
             </h1>
             <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
-              Discover events on your campus, create your own gatherings, and easily connect with students who share your interests.
+              Connect with people who share your passions, anywhere. Create gatherings, explore local events, and build meaningful connections in your city.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <button className="flex items-center justify-center gap-3 bg-purple-600 text-white px-8 py-4 rounded-2xl hover:bg-purple-700 transition-transform active:scale-95 font-semibold text-lg shadow-xl shadow-purple-500/25 group">
-                Join the Community
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button className="flex items-center justify-center gap-3 bg-white dark:bg-[#1A1A24] text-gray-900 dark:text-white border-2 border-gray-200 dark:border-gray-800 px-8 py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800/80 transition-transform active:scale-95 font-semibold text-lg group">
+              <button
+                onClick={() => {
+                  document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="flex items-center justify-center gap-3 bg-purple-600 text-white px-8 py-4 rounded-2xl hover:bg-purple-700 transition-transform active:scale-95 font-semibold text-lg shadow-xl shadow-purple-500/25 group"
+              >
                 Learn More
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
@@ -201,12 +193,12 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gray-50/50 dark:bg-[#15151E]" id="features">
+      <section className="py-24 bg-gray-50/50 dark:bg-[#15151E]" id="features-section">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Why GatherUp?</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Everything you need to live out your college experience to the fullest, in one app.
+              Everything you need to discover, create, and join events in your community — all in one app.
             </p>
           </div>
 
@@ -216,7 +208,7 @@ export default function LandingPage() {
                 <Calendar className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Smart Calendar</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Keep track of your classes, club activities, and meetups in real time. Never miss an event again.</p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Keep track of your events, group activities, and meetups in real time. Never miss a gathering again.</p>
             </div>
 
             <div className="bg-white dark:bg-[#1A1A24] p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800/80 shadow-lg shadow-gray-100/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-300">
@@ -224,7 +216,7 @@ export default function LandingPage() {
                 <Map className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Live Map</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">See popular campus locations, ongoing events, and friendly gatherings live on the campus map.</p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">See popular spots, ongoing events, and friendly gatherings around you — live on the interactive map.</p>
             </div>
 
             <div className="bg-white dark:bg-[#1A1A24] p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800/80 shadow-lg shadow-gray-100/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-300">
@@ -232,30 +224,49 @@ export default function LandingPage() {
                 <Shield className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Safe Community</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Interact exclusively with verified university students. Enjoy the best of social life with peace of mind.</p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Interact with verified members in a trusted environment. Enjoy the best of social life with complete peace of mind.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 relative z-10" id="cta">
+      <section className="py-24 px-6 relative z-10" id="download-section">
         <div className="max-w-6xl mx-auto bg-gradient-to-br from-purple-700 to-indigo-800 rounded-[3rem] p-12 md:p-20 text-center text-white shadow-2xl overflow-hidden relative">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl" />
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 relative z-10">Ready to join your campus?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 relative z-10">Your city is waiting.</h2>
           <p className="text-purple-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10">
-            Learn more about how GatherUp brings students together and helps you explore your university experience.
+            The best gatherings happen off-screen. Download GatherUp today and step out into the real world.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-            <button className="bg-white text-purple-800 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 hover:-translate-y-1 transition-transform shadow-xl">
-              Join the Community
-            </button>
-            <button className="bg-purple-800/50 backdrop-blur text-white border border-purple-400/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-800/70 hover:-translate-y-1 transition-transform">
-              Learn More
-            </button>
+            <a
+              href="#"
+              className="flex items-center justify-center gap-3 bg-white text-gray-900 px-6 py-3.5 rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-xl"
+            >
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              <div className="text-left">
+                <div className="text-[10px] font-medium opacity-70 uppercase tracking-wider">Download on the</div>
+                <div className="text-base font-bold -mt-0.5">App Store</div>
+              </div>
+            </a>
+
+            <a
+              href="#"
+              className="flex items-center justify-center gap-3 bg-white text-gray-900 px-6 py-3.5 rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-xl"
+            >
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.18 23.48c.26.14.57.17.86.06l11.31-5.52-3.1-3.1-9.07 8.56zm-.54-1.3V1.81L12.6 11.73l-2.42 2.42-7.54 8.03zm18.53-9.89c.49-.28.79-.8.79-1.35 0-.55-.3-1.07-.79-1.35l-3.77-2.07-3.41 3.41 3.41 3.41 3.77-2.05zM4.18.48L15.3 5.88l-3.09 3.09L3.64.42c.16-.05.34-.03.54.06z"/>
+              </svg>
+              <div className="text-left">
+                <div className="text-[10px] font-medium opacity-70 uppercase tracking-wider">Get it on</div>
+                <div className="text-base font-bold -mt-0.5">Google Play</div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -270,7 +281,7 @@ export default function LandingPage() {
               <span className="text-xl font-bold text-gray-900 dark:text-white">GatherUp</span>
             </div>
             <p className="text-gray-500 dark:text-gray-400 max-w-sm mb-6">
-              The smartest, most reliable socialization platform built specifically for students. Elevate your college experience with us.
+              The smartest, most reliable socialization platform built for everyone. Discover events, meet people, and build your community.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-[#1A1A24] flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">

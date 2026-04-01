@@ -10,7 +10,7 @@ export interface Report {
   id: string; // UUID
   target_id: string; // UUID
   target_type: 'USER' | 'EVENT' | 'CHAT';
-  status: 'PENDING' | 'RESOLVED' | 'REJECTED';
+  status: 'PENDING' | 'REVIEWING' | 'RESOLVED' | 'REJECTED';
   description: string;
   created_at: string;
 }

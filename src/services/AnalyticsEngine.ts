@@ -64,20 +64,37 @@ export class AnalyticsEngine {
    * RPC mevcut olmadığı varsayımıyla, sadece kategori adlarını çeker ve istemcide gruplar.
    */
   static async getPopularCategories(): Promise<PopularCategory[]> {
-    const { data, error } = await (supabaseClient as any)
-      .from('events')
-      .select('sub_category');
+    const BATCH_SIZE = 1000;
+    let allRows: { sub_category: string }[] = [];
+    let from = 0;
 
-    if (error) {
-      console.error('getPopularCategories error:', error);
-      throw new Error('Could not fetch categories.');
+    // Paginate through all events in batches of 1000 to bypass server-side row limit
+    while (true) {
+      const { data, error } = await (supabaseClient as any)
+        .from('events')
+        .select('sub_category')
+        .range(from, from + BATCH_SIZE - 1);
+
+      if (error) {
+        console.error('getPopularCategories error:', error);
+        throw new Error('Could not fetch categories.');
+      }
+
+      if (!data || data.length === 0) break;
+
+      allRows = allRows.concat(data);
+
+      // If we got fewer rows than the batch size, we've reached the end
+      if (data.length < BATCH_SIZE) break;
+
+      from += BATCH_SIZE;
     }
 
-    if (!data || data.length === 0) return [];
+    if (allRows.length === 0) return [];
 
     const categoryMap: Record<string, number> = {};
 
-    for (const row of data) {
+    for (const row of allRows) {
       const cat = row.sub_category || 'Unspecified';
       if (!categoryMap[cat]) categoryMap[cat] = 0;
       categoryMap[cat]++;
@@ -85,7 +102,7 @@ export class AnalyticsEngine {
 
     const result: PopularCategory[] = Object.entries(categoryMap)
       .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count); // Büyükten küçüğe sırala
+      .sort((a, b) => b.count - a.count);
 
     if (result.length > 5) {
       const top5 = result.slice(0, 5);

@@ -69,6 +69,34 @@ export class ModerationService {
   }
 
   /**
+   * getAllReportStatusCounts: Fetches all report statuses and computes counts dynamically.
+   */
+  static async getAllReportStatusCounts(): Promise<{
+    total: number;
+    pending: number;
+    reviewing: number;
+    resolved: number;
+  }> {
+    const { data, error } = await supabaseClient
+      .from('reports')
+      .select('status');
+
+    if (error) {
+      console.error('getAllReportStatusCounts Error:', error);
+      throw new Error(error.message);
+    }
+
+    const rows = (data as { status: string }[]) || [];
+
+    return {
+      total: rows.length,
+      pending: rows.filter((r) => r.status === 'PENDING').length,
+      reviewing: rows.filter((r) => r.status === 'REVIEWING').length,
+      resolved: rows.filter((r) => r.status === 'RESOLVED').length,
+    };
+  }
+
+  /**
    * removeEvent: events tablosunda id = eventId olan kaydı soft delete yap.
    */
   static async removeEvent(eventId: string, reason: string): Promise<void> {
