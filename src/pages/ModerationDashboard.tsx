@@ -98,7 +98,7 @@ export default function ModerationDashboard() {
       {/* Header */}
       <header className="flex flex-col md:flex-row md:items-center justify-between">
         <div>
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
             <ShieldAlert className="w-10 h-10 text-purple-600 dark:text-purple-500" />
             Moderation & Reports
           </h1>

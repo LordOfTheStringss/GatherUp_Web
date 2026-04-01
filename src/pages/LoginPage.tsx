@@ -3,8 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { supabaseClient } from '../infra/supabase';
 import { CalendarDays, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 
-const ADMIN_EMAIL = 'admin@gatherup.com';
-
 export default function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -18,19 +16,20 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const { data, error: signInError } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
+      // Query the custom admins table
+      const { data, error: queryError } = await supabaseClient
+        .from('admins')
+        .select('*')
+        .eq('email', email)
+        .eq('password', password)
+        .single();
 
-      if (signInError) throw signInError;
-
-      // CRITICAL: Only allow the designated admin email
-      if (data.user?.email !== ADMIN_EMAIL) {
-        await supabaseClient.auth.signOut();
-        throw new Error('Unauthorized: Admin access only.');
+      if (queryError || !data) {
+        throw new Error('Invalid admin credentials.');
       }
 
+      // Store session token in localStorage
+      localStorage.setItem('gatherup_admin_session', data.email);
       navigate('/admin/overview', { replace: true });
     } catch (err: any) {
       setError(err.message || 'An error occurred during login.');

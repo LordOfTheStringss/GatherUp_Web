@@ -82,7 +82,7 @@ export default function GovernanceDashboard() {
       
       {/* Header */}
       <header className="flex-none">
-        <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
           <ShieldCheck className="w-10 h-10 text-purple-600 dark:text-purple-400" />
           Governance Control
         </h1>

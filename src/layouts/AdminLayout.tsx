@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { supabaseClient } from '../infra/supabase';
 import { useTheme } from '../components/ThemeProvider';
 import {
   ShieldAlert, Menu, X, LogOut, LayoutDashboard, Sun, Moon,
-  ShieldCheck, Activity, Search, UserCircle, CalendarDays
+  ShieldCheck, Activity, UserCircle, CalendarDays
 } from 'lucide-react';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const handleLogout = async () => {
-    await supabaseClient.auth.signOut();
+  const handleLogout = () => {
+    localStorage.removeItem('gatherup_admin_session');
     navigate('/login');
   };
 
@@ -97,27 +96,16 @@ export default function AdminLayout() {
 
         {/* Global Header */}
         <header className="flex items-center justify-between h-20 px-6 lg:px-10 bg-white/80 dark:bg-[#1A1A24]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800/60 z-10 sticky top-0">
-          <div className="flex items-center flex-1 gap-4">
+          <div className="flex items-center gap-4">
             <button
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white focus:outline-none md:hidden"
               onClick={() => setIsMobileMenuOpen(true)}
             >
               <Menu className="w-6 h-6" />
             </button>
-
-            {/* Search Bar - hidden on very small screens */}
-            <div className="max-w-md w-full hidden sm:flex items-center relative">
-              <Search className="w-5 h-5 text-gray-400 absolute left-3" />
-              <input
-                type="text"
-                placeholder="Search anything..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800/50 border-transparent text-gray-900 dark:text-white rounded-full text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder-gray-500 dark:placeholder-gray-500"
-              />
-            </div>
           </div>
 
-          <div className="flex items-center gap-4 ml-4">
-            {/* Dark Mode Toggle */}
+          <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"

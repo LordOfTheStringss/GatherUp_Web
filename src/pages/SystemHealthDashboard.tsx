@@ -49,7 +49,7 @@ export default function SystemHealthDashboard() {
   return (
     <div className="space-y-8 animate-fade-in">
       <header className="pb-6 border-b border-gray-100 dark:border-gray-800/60 transition-colors">
-        <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
           <Database className="w-10 h-10 text-purple-600 dark:text-purple-500" />
           System Health & Quotas
         </h1>
