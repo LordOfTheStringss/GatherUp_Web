@@ -92,7 +92,7 @@ export default function LandingPage() {
               IT STARTS IN YOUR COMMUNITY
             </div>
             <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-              Discover incredible events around you. <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400">Join them.</span>
+              Discover incredible events around you. <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400">Stop waiting, Start creating.</span>
             </h1>
             <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
               Connect with people who share your passions, anywhere. Create gatherings, explore local events, and build meaningful connections in your city.
@@ -247,7 +247,7 @@ export default function LandingPage() {
               className="flex items-center justify-center gap-3 bg-white text-gray-900 px-6 py-3.5 rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-xl"
             >
               <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
               </svg>
               <div className="text-left">
                 <div className="text-[10px] font-medium opacity-70 uppercase tracking-wider">Download on the</div>
@@ -260,7 +260,7 @@ export default function LandingPage() {
               className="flex items-center justify-center gap-3 bg-white text-gray-900 px-6 py-3.5 rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-xl"
             >
               <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3.18 23.48c.26.14.57.17.86.06l11.31-5.52-3.1-3.1-9.07 8.56zm-.54-1.3V1.81L12.6 11.73l-2.42 2.42-7.54 8.03zm18.53-9.89c.49-.28.79-.8.79-1.35 0-.55-.3-1.07-.79-1.35l-3.77-2.07-3.41 3.41 3.41 3.41 3.77-2.05zM4.18.48L15.3 5.88l-3.09 3.09L3.64.42c.16-.05.34-.03.54.06z"/>
+                <path d="M3.18 23.48c.26.14.57.17.86.06l11.31-5.52-3.1-3.1-9.07 8.56zm-.54-1.3V1.81L12.6 11.73l-2.42 2.42-7.54 8.03zm18.53-9.89c.49-.28.79-.8.79-1.35 0-.55-.3-1.07-.79-1.35l-3.77-2.07-3.41 3.41 3.41 3.41 3.77-2.05zM4.18.48L15.3 5.88l-3.09 3.09L3.64.42c.16-.05.34-.03.54.06z" />
               </svg>
               <div className="text-left">
                 <div className="text-[10px] font-medium opacity-70 uppercase tracking-wider">Get it on</div>
@@ -310,7 +310,7 @@ export default function LandingPage() {
           <div>
             <h4 className="font-bold text-gray-900 dark:text-white mb-6">Legal</h4>
             <ul className="space-y-4 mb-8">
-              <li><a href="#" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Privacy Policy</a></li>
+              <li><Link to="/privacy-policy" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Privacy Policy</Link></li>
               <li><a href="#" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Terms of Service</a></li>
             </ul>
             <Link to="/login" className="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors group">
