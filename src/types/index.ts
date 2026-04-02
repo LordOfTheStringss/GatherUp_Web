@@ -4,6 +4,8 @@ export interface User {
   email: string;
   reputation_score: number;
   status: 'ACTIVE' | 'BANNED' | 'BUSY';
+  avatar_url?: string;
+  created_at?: string;
 }
 
 export interface Report {

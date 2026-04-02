@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { useTheme } from '../components/ThemeProvider';
 import {
   ShieldAlert, Menu, X, LogOut, LayoutDashboard, Sun, Moon,
   ShieldCheck, Activity, UserCircle, CalendarDays
 } from 'lucide-react';
+import { useAuth } from '../components/AuthContext';
 
 export default function AdminLayout() {
-  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const handleLogout = () => {
-    localStorage.removeItem('gatherup_admin_session');
-    navigate('/login');
+    logout();
   };
 
   const tabs = [

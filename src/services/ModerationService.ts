@@ -97,6 +97,80 @@ export class ModerationService {
   }
 
   /**
+   * banUserDirectly: Ban a user directly without requiring a report ID.
+   * 1) Update the user's status to BANNED in the users table.
+   * 2) Insert a RESOLVED report into the reports table to log the admin action (no schema change needed).
+   */
+  static async banUserDirectly(userId: string, reason: string): Promise<void> {
+    if (!userId) throw new Error('User ID is required for banning.');
+
+    try {
+      // Run both operations in parallel
+      const [userResult, reportResult] = await Promise.all([
+        // 1. Set user status to BANNED
+        supabaseClient
+          .from('users')
+          .update({ status: 'BANNED' })
+          .eq('id', userId)
+          .select(),
+
+        // 2. Insert a resolved report as an admin action log
+        supabaseClient
+          .from('reports')
+          .insert({
+            target_id: userId,
+            target_type: 'USER',
+            description: reason,
+            status: 'RESOLVED',
+          }),
+      ]);
+
+      if (userResult.error) {
+        console.error('banUserDirectly - users update error:', userResult.error);
+        throw new Error(userResult.error.message);
+      }
+      if (!userResult.data || userResult.data.length === 0) {
+        throw new Error('No user found with the specified ID.');
+      }
+
+      if (reportResult.error) {
+        console.error('banUserDirectly - reports insert error:', reportResult.error);
+        throw new Error(reportResult.error.message);
+      }
+    } catch (error) {
+      console.error('banUserDirectly Error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * unbanUser: Unban a user by setting their status back to ACTIVE.
+   */
+  static async unbanUser(userId: string): Promise<void> {
+    if (!userId) throw new Error('User ID is required for unbanning.');
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('users')
+        .update({ status: 'ACTIVE' })
+        .eq('id', userId)
+        .select();
+
+      if (error) {
+        console.error('unbanUser - users update error:', error);
+        throw new Error(error.message);
+      }
+      if (!data || data.length === 0) {
+        throw new Error('No user found with the specified ID.');
+      }
+    } catch (error) {
+      console.error('unbanUser Error:', error);
+      throw error;
+    }
+  }
+
+
+  /**
    * removeEvent: events tablosunda id = eventId olan kaydı soft delete yap.
    */
   static async removeEvent(eventId: string, reason: string): Promise<void> {

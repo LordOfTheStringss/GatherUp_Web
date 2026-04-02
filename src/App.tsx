@@ -5,6 +5,7 @@ import AdminLayout from './layouts/AdminLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import { ThemeProvider } from './components/ThemeProvider';
+import { AuthProvider } from './components/AuthContext';
 
 // Dashboard Views
 import MainDashboard from './pages/MainDashboard';
@@ -16,27 +17,29 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <AuthProvider>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
 
-        {/* Protected Admin Routes */}
-        <Route path="/admin" element={<ProtectedRoute />}>
-          <Route element={<AdminLayout />}>
-            {/* Redirect /admin directly to /admin/overview */}
-            <Route index element={<Navigate to="/admin/overview" replace />} />
-            
-            <Route path="overview" element={<MainDashboard />} />
-            <Route path="moderation" element={<ModerationDashboard />} />
-            <Route path="governance" element={<GovernanceDashboard />} />
-            <Route path="health" element={<SystemHealthDashboard />} />
-          </Route>
-        </Route>
+            {/* Protected Admin Routes */}
+            <Route path="/admin" element={<ProtectedRoute />}>
+              <Route element={<AdminLayout />}>
+                {/* Redirect /admin directly to /admin/overview */}
+                <Route index element={<Navigate to="/admin/overview" replace />} />
+                
+                <Route path="overview" element={<MainDashboard />} />
+                <Route path="moderation" element={<ModerationDashboard />} />
+                <Route path="governance" element={<GovernanceDashboard />} />
+                <Route path="health" element={<SystemHealthDashboard />} />
+              </Route>
+            </Route>
 
-        {/* Fallback Route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+            {/* Fallback Route */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -1,4 +1,5 @@
 import { supabaseClient } from '../infra/supabase';
+import { User } from '../types';
 
 export interface UserGrowthMetrics {
   totalUsers: number;
@@ -114,5 +115,76 @@ export class AnalyticsEngine {
     }
 
     return result;
+  }
+
+  /**
+   * Fetch all users, ordered by most recent first.
+   */
+  static async getAllUsers(): Promise<User[]> {
+    try {
+      const { data, error } = await supabaseClient
+        .from('users')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Fetch Users Error (getAllUsers):', error);
+        throw new Error(error.message);
+      }
+
+      return (data as unknown as User[]) || [];
+    } catch (err) {
+      console.error('Fetch Users Error (getAllUsers catch):', err);
+      throw err;
+    }
+  }
+
+  /**
+   * Fetch users registered in the last 7 days.
+   */
+  static async getRecentUsers(): Promise<User[]> {
+    try {
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data, error } = await supabaseClient
+        .from('users')
+        .select('*')
+        .gte('created_at', sevenDaysAgo.toISOString())
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Fetch Users Error (getRecentUsers):', error);
+        throw new Error(error.message);
+      }
+
+      return (data as unknown as User[]) || [];
+    } catch (err) {
+      console.error('Fetch Users Error (getRecentUsers catch):', err);
+      throw err;
+    }
+  }
+
+  /**
+   * Fetch all banned users.
+   */
+  static async getBannedUsers(): Promise<User[]> {
+    try {
+      const { data, error } = await supabaseClient
+        .from('users')
+        .select('*')
+        .eq('status', 'BANNED')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Fetch Users Error (getBannedUsers):', error);
+        throw new Error(error.message);
+      }
+
+      return (data as unknown as User[]) || [];
+    } catch (err) {
+      console.error('Fetch Users Error (getBannedUsers catch):', err);
+      throw err;
+    }
   }
 }
