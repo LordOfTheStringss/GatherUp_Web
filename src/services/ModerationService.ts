@@ -144,7 +144,7 @@ export class ModerationService {
   }
 
   /**
-   * unbanUser: Unban a user by setting their status back to ACTIVE.
+   * unbanUser: Unban a user by setting their status back to available.
    */
   static async unbanUser(userId: string): Promise<void> {
     if (!userId) throw new Error('User ID is required for unbanning.');
@@ -152,7 +152,7 @@ export class ModerationService {
     try {
       const { data, error } = await supabaseClient
         .from('users')
-        .update({ status: 'ACTIVE' })
+        .update({ status: 'available' })
         .eq('id', userId)
         .select();
 

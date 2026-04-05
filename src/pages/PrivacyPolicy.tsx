@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../components/ThemeProvider';
 import { CalendarDays, ArrowLeft, Sun, Moon } from 'lucide-react';
 
 export default function PrivacyPolicy() {
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#12121A] text-gray-900 dark:text-gray-100 font-sans selection:bg-purple-500/30 transition-colors duration-300">
@@ -11,19 +17,19 @@ export default function PrivacyPolicy() {
       {/* Navbar */}
       <nav className="border-b border-gray-100 dark:border-gray-800/60 bg-white/80 dark:bg-[#1A1A24]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
+          <button onClick={() => { navigate('/'); window.scrollTo(0, 0); }} className="flex items-center gap-3 group bg-transparent border-none cursor-pointer p-0">
             <CalendarDays className="w-8 h-8 text-purple-600 dark:text-purple-500" />
             <span className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">GatherUp</span>
-          </Link>
+          </button>
 
           <div className="flex items-center gap-4">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            <button
+              onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
+              className="flex items-center gap-2 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors bg-transparent border-none cursor-pointer p-0"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home
-            </Link>
+            </button>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -169,9 +175,9 @@ export default function PrivacyPolicy() {
       <footer className="border-t border-gray-100 dark:border-gray-800 py-8 px-6 transition-colors duration-300">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500">
           <p>&copy; {new Date().getFullYear()} GatherUp. All rights reserved.</p>
-          <Link to="/" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold transition-colors">
+          <button onClick={() => { navigate('/'); window.scrollTo(0, 0); }} className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold transition-colors bg-transparent border-none cursor-pointer p-0">
             Back to Home
-          </Link>
+          </button>
         </div>
       </footer>
     </div>

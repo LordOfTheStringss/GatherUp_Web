@@ -300,8 +300,7 @@ export default function LandingPage() {
           <div>
             <h4 className="font-bold text-gray-900 dark:text-white mb-6">Pages</h4>
             <ul className="space-y-4">
-              <li><a href="#features" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Features</a></li>
-              <li><a href="#cta" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">How it Works</a></li>
+              <li><button onClick={() => document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors bg-transparent border-none cursor-pointer p-0">Features</button></li>
               <li><a href="#" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -311,7 +310,6 @@ export default function LandingPage() {
             <h4 className="font-bold text-gray-900 dark:text-white mb-6">Legal</h4>
             <ul className="space-y-4 mb-8">
               <li><Link to="/privacy-policy" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Privacy Policy</Link></li>
-              <li><a href="#" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Terms of Service</a></li>
             </ul>
             <Link to="/login" className="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors group">
               Admin Login

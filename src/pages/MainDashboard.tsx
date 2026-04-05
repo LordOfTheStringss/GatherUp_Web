@@ -127,9 +127,9 @@ export default function MainDashboard() {
         // Remove from the banned list since they're no longer banned
         setViewUsers((prev) => prev.filter((u) => u.id !== userId));
       } else {
-        // Flip status to ACTIVE in the list
+        // Flip status to available in the list
         setViewUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, status: 'ACTIVE' as const } : u))
+          prev.map((u) => (u.id === userId ? { ...u, status: 'available' as any } : u))
         );
       }
 
@@ -152,6 +152,34 @@ export default function MainDashboard() {
   };
 
   const COLORS = ['#8B5CF6', '#6366F1', '#EC4899', '#14B8A6', '#F59E0B', '#3B82F6'];
+
+  // ── Status Badge Color Map (case-insensitive) ──
+  const getStatusBadgeClasses = (status: string) => {
+    const s = status?.toLowerCase() ?? '';
+    switch (s) {
+      case 'available':
+      case 'active':
+        return {
+          badge: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+          dot: 'bg-green-500',
+        };
+      case 'busy':
+        return {
+          badge: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
+          dot: 'bg-orange-500',
+        };
+      case 'banned':
+        return {
+          badge: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+          dot: 'bg-red-500',
+        };
+      default:
+        return {
+          badge: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+          dot: 'bg-gray-400',
+        };
+    }
+  };
 
   if (loading) {
     return (
@@ -402,26 +430,22 @@ export default function MainDashboard() {
 
                         {/* Status */}
                         <td className="px-6 py-4">
-                          <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${
-                            user.status === 'ACTIVE'
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-                              : user.status === 'BANNED'
-                              ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                              : 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-                          }`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${
-                              user.status === 'ACTIVE' ? 'bg-emerald-500' :
-                              user.status === 'BANNED' ? 'bg-red-500' : 'bg-amber-500'
-                            }`}></span>
-                            {user.status}
-                          </span>
+                          {(() => {
+                            const { badge, dot } = getStatusBadgeClasses(user.status);
+                            return (
+                              <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${badge}`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${dot}`}></span>
+                                {user.status}
+                              </span>
+                            );
+                          })()}
                         </td>
 
 
 
                         {/* Actions */}
                         <td className="px-6 py-4 text-right">
-                          {user.status === 'ACTIVE' || user.status === 'BUSY' ? (
+                          {user.status?.toLowerCase() !== 'banned' ? (
                             <button
                               id={`ban-user-${user.id}`}
                               onClick={(e) => {
