@@ -1,4 +1,4 @@
-# GatherUp Premium Admin Panel 🚀
+# GatherUp Premium Admin Panel 
 
 A modern, highly responsive, and premium web administration dashboard built specifically for managing the **GatherUp** platform. It provides real-time community moderation, institutional domain governance, and system-wide health monitoring.
 
