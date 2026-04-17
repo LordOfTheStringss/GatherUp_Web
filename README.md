@@ -5,9 +5,9 @@ A modern, highly responsive, and premium web administration dashboard built spec
 Our Web Link:
 https://gather-up-web.vercel.app/?_vercel_share=ziZ5TPg55u9qydlcj9FecEAc1zXIu3P0
 
-![GatherUp Admin Panel](https://via.placeholder.com/1200x600.png?text=GatherUp+Admin+Dashboard)
 
-## 📌 Features
+
+## Features
 
 - **Premium Dark/Light Theme:** Fully integrated Tailwind CSS semantic dark mode (`#1A1A24` base) with glowing purple and indigo accents.
 - **Main Overview Dashboard:** Real-time data visualization using Recharts (Pie & Bar charts) for monitoring signups, active events, and user growth.
@@ -15,7 +15,7 @@ https://gather-up-web.vercel.app/?_vercel_share=ziZ5TPg55u9qydlcj9FecEAc1zXIu3P0
 - **Governance Control:** Split-view dynamic panels to manage allowed institutional registration domains (e.g., `mit.edu`) and audit all registered users within that domain.
 - **System Health Monitor:** Real-time tracking of Supabase database capacity blocks with reactive color-coded gradient progress bars.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework:** React 18 + Vite
 - **Language:** TypeScript
@@ -26,7 +26,7 @@ https://gather-up-web.vercel.app/?_vercel_share=ziZ5TPg55u9qydlcj9FecEAc1zXIu3P0
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these instructions to run the GatherUp Admin Panel locally on your machine.
 
@@ -69,9 +69,9 @@ npm run dev
 ```
 
 The application will typically start and be accessible at:
-👉 **[http://localhost:5173](http://localhost:5173)**
+**[http://localhost:5173](http://localhost:5173)**
 
-## 📦 Building for Production
+## Building for Production
 
 When you are ready to deploy (e.g., to Vercel, Netlify, or an NGINX server), generate the optimized build block:
 
