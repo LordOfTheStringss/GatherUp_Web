@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../components/ThemeProvider';
 import {
   Calendar, Map, Shield, ChevronRight, ChevronLeft, ArrowRight,
-  Twitter, Instagram, Linkedin, CalendarDays, Sun, Moon, Loader2, ImageOff
+  Twitter, Instagram, Linkedin, CalendarDays, Sun, Moon, Loader2, ImageOff,
+  Brain, CalendarCheck, FileSearch, Layers, MapPin
 } from 'lucide-react';
 
 export default function LandingPage() {
@@ -193,38 +194,89 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gray-50/50 dark:bg-[#15151E]" id="features-section">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Why GatherUp?</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Everything you need to discover, create, and join events in your community — all in one app.
+      <section className="py-24 bg-slate-50 dark:bg-[#0B0C10] relative overflow-hidden transition-colors duration-300" id="features-section">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-200/50 dark:bg-purple-900/10 rounded-full blur-[120px] pointer-events-none transition-colors duration-300" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">Why GatherUp?</h2>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-[#94A3B8] max-w-3xl mx-auto font-medium transition-colors duration-300">
+              Everything you need to discover, create, and join events in your community - all in one app.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-[#1A1A24] p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800/80 shadow-lg shadow-gray-100/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mb-6">
-                <Calendar className="w-8 h-8" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Card 1 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-purple-300 dark:hover:border-purple-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 dark:from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <Brain className="w-10 h-10 text-purple-600 dark:text-purple-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(168,85,247,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">Two-Tower Architecture</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  Advanced neural matching using user and event embeddings to provide hyper-personalized, semantic recommendations.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Smart Calendar</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Keep track of your events, group activities, and meetups in real time. Never miss a gathering again.</p>
             </div>
 
-            <div className="bg-white dark:bg-[#1A1A24] p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800/80 shadow-lg shadow-gray-100/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center mb-6">
-                <Map className="w-8 h-8" />
+            {/* Card 2 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-blue-300 dark:hover:border-blue-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 dark:from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <CalendarCheck className="w-10 h-10 text-blue-600 dark:text-blue-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(59,130,246,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">Smart Availability</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  Automated schedule matching that mathematically finds the perfect conflict-free time slot for everyone in the group.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Live Map</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">See popular spots, ongoing events, and friendly gatherings around you — live on the interactive map.</p>
             </div>
 
-            <div className="bg-white dark:bg-[#1A1A24] p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800/80 shadow-lg shadow-gray-100/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-2xl flex items-center justify-center mb-6">
-                <Shield className="w-8 h-8" />
+            {/* Card 3 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-cyan-300 dark:hover:border-cyan-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 dark:from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <FileSearch className="w-10 h-10 text-cyan-600 dark:text-cyan-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">OCR Schedule Parsing</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  Instantly upload and parse university timetables or work schedules using AI-driven optical character recognition.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Safe Community</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">Interact with verified members in a trusted environment. Enjoy the best of social life with complete peace of mind.</p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-indigo-300 dark:hover:border-indigo-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 dark:from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <Layers className="w-10 h-10 text-indigo-600 dark:text-indigo-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(99,102,241,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">Algorithmic Merging</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  Dynamic event merging logic that automatically optimizes social gatherings and participant pools based on a 24-hour operational window.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 5 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-violet-300 dark:hover:border-violet-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 dark:from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <MapPin className="w-10 h-10 text-violet-600 dark:text-violet-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(139,92,246,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">Spatio-Temporal Discovery</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  A live interactive map and social hub to discover trending local events, regional heatmaps, and connect with verified peers effortlessly.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 6 */}
+            <div className="group relative bg-white dark:bg-[#13151A] p-8 rounded-3xl border border-slate-200 dark:border-white/5 hover:border-pink-300 dark:hover:border-pink-500/40 transition-all duration-500 hover:-translate-y-2 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 dark:from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <Shield className="w-10 h-10 text-pink-600 dark:text-pink-400 mb-6 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(244,114,182,0.7)] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-300">Institutional Trust</h3>
+                <p className="text-slate-600 dark:text-[#94A3B8] leading-relaxed text-sm md:text-base transition-colors duration-300">
+                  Interact in a heavily verified, safe community. Institutional domain gates and real-time chat isolation ensure complete peace of mind.
+                </p>
+              </div>
             </div>
           </div>
         </div>

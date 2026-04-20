@@ -13,6 +13,7 @@ interface AuthState {
 
 interface AuthContextType extends AuthState {
   logout: () => void;
+  setSession: (email: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -148,8 +149,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     navigate('/login', { replace: true });
   };
 
+  const setSession = (email: string) => {
+    localStorage.setItem('gatherup_admin_session', email);
+    setState({
+      isAuthenticated: true,
+      adminEmail: email,
+      isLoading: false,
+      isBanned: false,
+      error: null,
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, logout }}>
+    <AuthContext.Provider value={{ ...state, logout, setSession }}>
       {children}
     </AuthContext.Provider>
   );

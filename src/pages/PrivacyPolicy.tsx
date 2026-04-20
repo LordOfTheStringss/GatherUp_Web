@@ -159,7 +159,7 @@ export default function PrivacyPolicy() {
               </p>
               <div className="bg-gray-50/80 dark:bg-[#15151E] border border-gray-100 dark:border-gray-800/80 rounded-xl p-6 space-y-3">
                 <p><strong className="text-gray-800 dark:text-gray-200">Email:</strong> privacy@gatherup.app</p>
-                <p><strong className="text-gray-800 dark:text-gray-200">Address:</strong> GatherUp Headquarters, Istanbul, Turkey</p>
+                <p><strong className="text-gray-800 dark:text-gray-200">Address:</strong> GatherUp Headquarters, Ankara, Turkey</p>
                 <p><strong className="text-gray-800 dark:text-gray-200">Data Controller:</strong> GatherUp Technology Ltd.</p>
               </div>
               <p className="text-sm text-gray-400 dark:text-gray-500 mt-4">

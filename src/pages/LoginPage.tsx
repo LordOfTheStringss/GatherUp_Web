@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabaseClient } from '../infra/supabase';
+import { useAuth } from '../components/AuthContext';
 import { CalendarDays, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { setSession } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,8 +30,11 @@ export default function LoginPage() {
         throw new Error('Invalid admin credentials.');
       }
 
-      // Store session token in localStorage
-      localStorage.setItem('gatherup_admin_session', data.email);
+      // Update global auth context and localStorage simultaneously
+      setSession(data.email);
+      // Wait for react state cycle to complete before navigating
+      await new Promise(resolve => setTimeout(resolve, 0));
+      
       navigate('/admin/overview', { replace: true });
     } catch (err: any) {
       setError(err.message || 'An error occurred during login.');
